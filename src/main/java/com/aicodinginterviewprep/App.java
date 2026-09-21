@@ -1,5 +1,6 @@
 package com.aicodinginterviewprep;
 
+import com.aicodinginterviewprep.db.DatabaseMigrator;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,6 +18,11 @@ public class App extends Application {
         SceneManager sceneManager = new SceneManager(stage);
         sceneManager.switchToScene("home");
         stage.show();
+    }
+
+    @Override
+    public void init() {
+        DatabaseMigrator.migrate();
     }
 
     public static void main(String[] args) {

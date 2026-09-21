@@ -51,6 +51,35 @@ below).
 Without a key, "Generate new question" and answer evaluation will fail with
 an error message rather than crash the app.
 
+`.env` also contains the database settings (`DB_*`). See "Database setup" below.
+
+## Database setup
+
+The app uses a MySQL database running in Docker. Flyway creates and updates
+the tables automatically when the app starts.
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and make sure it is running.
+2. Fill in the `DB_*` values in your `.env` file (see "OpenAI API key setup" above).
+3. Start the database from the project root:
+
+```bash
+docker compose up -d
+```
+
+To reset the database (deletes all local data; tables are recreated on the next run):
+
+```bash
+docker compose down -v
+```
+
+To check that it works, run the app once (see "Run the application"), then:
+
+```bash
+docker exec -it interviewprep-mysql sh -c 'mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" -e "SHOW TABLES;"'
+```
+
+You should see `user_account` and `flyway_schema_history`.
+
 ## Run the application
 
 From the project root:
